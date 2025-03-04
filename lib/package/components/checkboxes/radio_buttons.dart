@@ -9,11 +9,13 @@ class BelugaRadioButton<T> extends StatelessWidget {
   final Color activeColor;
   final Color borderColor;
   final double borderWidth;
-  final bool isDisabled;
+  final bool isDisabledUnselected;
+  final bool isDisabledSelected;
   final String? label;
   final bool showShadow;
   final bool showUnselectedFill;
   final bool showSelectedFill;
+  final Color fillColor;
   final bool showOuterGlow;
 
   const BelugaRadioButton({
@@ -21,11 +23,13 @@ class BelugaRadioButton<T> extends StatelessWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
+    this.fillColor = const Color(0xffF4F3FF),
     this.size = 20.0,
     this.activeColor = AppColors.radiocolor,
     this.borderColor = Colors.grey,
     this.borderWidth = 2.0,
-    this.isDisabled = false,
+    this.isDisabledUnselected = false,
+    this.isDisabledSelected = false,
     this.label,
     this.showShadow = false,
     this.showUnselectedFill = false,
@@ -116,9 +120,9 @@ class BelugaRadioButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isSelected = value == groupValue;
     final double responsiveSize = MediaQuery.of(context).size.width * 0.05;
-    final bool isDisabledSelected = isDisabled && isSelected;
+    final bool isDisabled = isDisabledUnselected || isDisabledSelected;
 
-    return GestureDetector(
+    return InkWell(
       onTap: isDisabled ? null : () => onChanged(value),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -143,16 +147,16 @@ class BelugaRadioButton<T> extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: isDisabled
-                        ? Colors.grey.shade400
+                        ? Colors.grey.shade300
                         : (isSelected ? activeColor : borderColor),
                     width: borderWidth,
                   ),
-                  color: isDisabledSelected
+                  color: isDisabled
                       ? Colors.grey.shade300
                       : (!isSelected && showUnselectedFill
-                          ? borderColor.withOpacity(0.1)
+                          ? fillColor
                           : (isSelected && showSelectedFill
-                              ? activeColor.withOpacity(0.1)
+                              ? fillColor
                               : Colors.transparent)),
                   boxShadow: showShadow && isSelected
                       ? [
@@ -164,15 +168,16 @@ class BelugaRadioButton<T> extends StatelessWidget {
                         ]
                       : [],
                 ),
-                child: isSelected
+                child: isDisabledSelected || isSelected
                     ? Center(
                         child: Container(
                           width: responsiveSize * 0.5,
                           height: responsiveSize * 0.5,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color:
-                                isDisabled ? Colors.grey.shade400 : activeColor,
+                            color: isDisabledSelected
+                                ? Colors.grey.shade400
+                                : activeColor,
                           ),
                         ),
                       )
@@ -185,9 +190,9 @@ class BelugaRadioButton<T> extends StatelessWidget {
             Text(
               label!,
               style: TextStyle(
-                color: isDisabled ? Colors.grey : Colors.black,
-                fontSize: responsiveSize * 0.6,
-              ),
+                  color: isDisabled ? Colors.grey : Colors.black,
+                  fontSize: responsiveSize * 0.75,
+                  fontWeight: FontWeight.w400),
             ),
           ],
         ],
