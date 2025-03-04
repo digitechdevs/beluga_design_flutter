@@ -15,7 +15,7 @@ class CustomTabBar extends StatelessWidget {
     this.backgroundColor = Colors.white,
     this.indicatorColor = const Color(0xff9747FF),
     this.labelColor = Colors.white,
-    this.unselectedLabelColor = Colors.grey,
+    this.unselectedLabelColor = Colors.black,
   });
 
   @override
