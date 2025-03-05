@@ -46,8 +46,7 @@ class BelugaTextField extends StatefulWidget {
     this.isLast = false,
     this.isButtonPrefix = false,
     this.prefixButton,
-    this.prefixSaxIcon =
-        false ? IconsaxPlusLinear.user : IconsaxPlusLinear.user, // Default icon
+    this.prefixSaxIcon = IconsaxPlusLinear.user, // Default icon
     this.dropdownItems,
     this.dropdownValue,
     this.onDropdownChanged,

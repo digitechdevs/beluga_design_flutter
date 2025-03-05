@@ -29,7 +29,7 @@ class _InputFieldState extends State<InputField> {
                   focus: false,
                   //prefixIcon: ,
                   isPrefix: true,
-                  prefixSaxIcon: IconsaxPlusLinear.airdrop,
+                  prefixSaxIcon: IconsaxPlusLinear.user,
                 ),
               ),
             ),
