@@ -4,15 +4,17 @@ class BelugaTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final bool isButtonPrefix;
+  final bool isButtonSuffix;
   final bool? isEnabled;
-  final bool isObscure;
+  bool isObscure;
   final bool isSuffix;
   final bool isPrefix;
   final VoidCallback? onTapSuffix;
   final TextInputType textInputType;
-  final String? suffixIcon;
+  final IconData? suffixIcon;
   final String? prefixIcon;
   final IconData prefixSaxIcon; // Dynamic prefix icon
+  final IconData suffixSaxIcon; // Dynamic prefix icon
   final String? Function(String?)? validator;
   final int maxLines;
   final bool readOnly;
@@ -21,11 +23,13 @@ class BelugaTextField extends StatefulWidget {
   final bool focus;
   final bool isLast;
   final Widget? prefixButton;
+  final Widget? suffixButton;
   final List<String>? dropdownItems; // Dropdown options
   final String? dropdownValue; // Currently selected value
   final ValueChanged<String?>? onDropdownChanged; // Callback when changed
+  final bool enableDecoration;
 
-  const BelugaTextField({
+  BelugaTextField({
     super.key,
     this.controller,
     this.isEnabled = true,
@@ -40,17 +44,20 @@ class BelugaTextField extends StatefulWidget {
     this.maxLines = 1,
     this.readOnly = false,
     this.onTap,
-    this.focus = false,
+    this.focus = true,
     this.onChanged,
     this.validator,
     this.isLast = false,
     this.isButtonPrefix = false,
     this.prefixButton,
-    this.prefixSaxIcon =
-        false ? IconsaxPlusLinear.user : IconsaxPlusLinear.user, // Default icon
+    this.prefixSaxIcon = IconsaxPlusLinear.user, // Default icon
     this.dropdownItems,
     this.dropdownValue,
     this.onDropdownChanged,
+    this.enableDecoration = true,
+    this.isButtonSuffix = false,
+    this.suffixButton,
+    this.suffixSaxIcon = IconsaxPlusLinear.user, // Default icon
   });
 
   @override
@@ -60,6 +67,7 @@ class BelugaTextField extends StatefulWidget {
 class _BelugaTextFieldState extends State<BelugaTextField> {
   final FocusNode _focusNode = FocusNode();
   bool focused = false;
+  bool hasError = false;
 
   @override
   void initState() {
@@ -79,114 +87,201 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: focused
-            ? [
-                BoxShadow(
-                  color: AppColors.purple400.withOpacity(0.2),
-                  blurRadius: 0,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 0),
-                ),
-              ]
-            : [],
-      ),
-      child: TextFormField(
-        enabled: widget.isEnabled,
-        focusNode: _focusNode,
-        validator: widget.validator,
-        textInputAction:
-            widget.isLast ? TextInputAction.done : TextInputAction.next,
-        onTap: widget.onTap,
-        onChanged: widget.onChanged,
-        keyboardType: widget.textInputType,
-        enableSuggestions: false,
-        autocorrect: false,
-        readOnly: widget.readOnly,
-        controller: widget.controller,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        textAlign: TextAlign.start,
-        cursorColor: AppColors.purple900,
-        // style: AppTextTheme.bodyLabelBlack,
-        obscureText: widget.isObscure,
-        maxLines: widget.maxLines,
-        decoration: InputDecoration(
-          fillColor: widget.isEnabled! ? Colors.white : AppColors.gray50,
-          prefixIcon: widget.isPrefix
-              ? (widget.prefixIcon != null
-                  ? const Icon(IconsaxPlusLinear.user,
-                      size:
-                          24) // Use user-defined icon (note: fixed from prefixSaxIcon)
-                  : Icon(widget.prefixSaxIcon)) // Default icon
-              : widget.isButtonPrefix
-                  ? widget.prefixButton ?? // Allow user to provide a button widget
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          value: widget.dropdownValue,
-                          onChanged: widget.onDropdownChanged,
-                          items: widget.dropdownItems?.map((String item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(item),
-                            );
-                          }).toList(),
-                        ),
-                      )
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start, // Align items to the start
+      children: [
+        // Container with BoxDecoration for the TextFormField
+        Container(
+          decoration: widget.enableDecoration
+              ? BoxDecoration(
+                  color:
+                      hasError && focused ? AppColors.error100 : Colors.white,
+                  // Red background only on error + focus
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: hasError && focused
+                      ? [
+                          BoxShadow(
+                            color: AppColors.error500
+                                .withOpacity(0.3), // Red shadow
+                            blurRadius: 0,
+                            spreadRadius: 2,
+                            offset: const Offset(0, 0),
+                          ),
+                        ]
+                      : focused
+                          ? [
+                              BoxShadow(
+                                color: AppColors.purple400.withOpacity(0.3),
+                                blurRadius: 0,
+                                spreadRadius: 2,
+                                offset: const Offset(0, 0),
+                              ),
+                            ]
+                          : [],
+                )
+              : null,
+          clipBehavior: Clip.hardEdge,
+          child: TextFormField(
+            enabled: widget.isEnabled,
+            focusNode: _focusNode,
+            onChanged: (value) {
+              final error = widget.validator?.call(value);
+              if (hasError != (error != null)) {
+                setState(() {
+                  hasError = error != null; // Update error state
+                });
+              }
+              widget.onChanged
+                  ?.call(value); // Call the external onChanged callback
+            },
+            validator: widget.validator,
+            textInputAction:
+                widget.isLast ? TextInputAction.done : TextInputAction.next,
+            onTap: widget.onTap,
+            keyboardType: widget.textInputType,
+            enableSuggestions: false,
+            autocorrect: false,
+            readOnly: widget.readOnly,
+            controller: widget.controller,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            textAlign: TextAlign.start,
+            cursorColor: AppColors.purple900,
+            obscureText: widget.isObscure,
+            maxLines: widget.maxLines,
+            decoration: InputDecoration(
+              fillColor: widget.isEnabled! ? Colors.white : AppColors.gray50,
+              prefixIcon: widget.isPrefix
+                  ? (widget.isButtonPrefix
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: widget.prefixButton ??
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  icon: const Padding(
+                                    padding: EdgeInsets.only(left: 2.0),
+                                    child: Icon(IconsaxPlusLinear.arrow_down,
+                                        size: 22, color: AppColors.purple400),
+                                  ),
+                                  value: widget.dropdownValue,
+                                  onChanged: widget.onDropdownChanged,
+                                  items:
+                                      widget.dropdownItems?.map((String item) {
+                                    return DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(item),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                        )
+                      : (widget.prefixIcon != null
+                          ? const Icon(IconsaxPlusLinear.user, size: 24)
+                          : Icon(widget.prefixSaxIcon)))
                   : null,
-
-          // prefixIcon: Padding(
-          //   padding: const EdgeInsets.all(12.0),
-          //   child: Object.prefixIcon != null
-          //       ? IconsaxPlusLinear(Object.prefixIcon!) // User-provided icon
-          //       : const Icon(IconsaxPlusLinear.user,
-          //           color: AppColors.purple400), // Default icon
-          // ),
-          // suffixIcon: widget.isSuffix
-          //     ? IconButton(
-          //         splashRadius: 25.r,
-          //         onPressed: widget.onTapSuffix,
-          //         icon: widget.suffixIcon == null
-          //             ? Icon(!widget.isObscure
-          //                 ? IconsaxPlusBold.eye_slash
-          //                 : IconsaxPlusBold.eye)
-          //             : SvgPicture.asset(widget.suffixIcon!))
-          //     : null,
-          // Dynamic color change
-
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
-          filled: true,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: widget.focus ? AppColors.gray400 : AppColors.gray400),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: widget.focus ? AppColors.gray400 : AppColors.purple400),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: widget.focus ? AppColors.gray300 : AppColors.gray300),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: widget.focus ? AppColors.error500 : AppColors.error500),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          hintText: widget.hintText ?? '',
-          hintStyle: TextStyle(
-            fontSize: 14.sp,
-            color: AppColors.gray400,
-            fontWeight: FontWeight.w400,
+              suffixIcon: widget.isSuffix
+                  ? (widget.isButtonSuffix
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: widget.suffixButton ??
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  icon: const Padding(
+                                    padding: EdgeInsets.only(left: 2.0),
+                                    child: Icon(IconsaxPlusLinear.arrow_down,
+                                        size: 22, color: AppColors.purple400),
+                                  ),
+                                  value: widget.dropdownValue,
+                                  onChanged: widget.onDropdownChanged,
+                                  items:
+                                      widget.dropdownItems?.map((String item) {
+                                    return DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(item),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                        )
+                      : IconButton(
+                          splashRadius: 25.r,
+                          onPressed: () {
+                            setState(() {
+                              widget.isObscure = !widget.isObscure;
+                            });
+                          },
+                          icon: widget.suffixSaxIcon != null
+                              ? Icon(widget.suffixSaxIcon)
+                              : Icon(
+                                  widget.isObscure
+                                      ? IconsaxPlusLinear.eye_slash
+                                      : IconsaxPlusLinear.eye,
+                                ),
+                        ))
+                  : null,
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        widget.focus ? AppColors.gray400 : AppColors.gray400),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        widget.focus ? AppColors.purple400 : AppColors.gray400),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        widget.focus ? AppColors.gray300 : AppColors.gray300),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: hasError && focused
+                        ? AppColors.error500
+                        : AppColors
+                            .error500), // Red border only on error + focus
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: hasError && focused
+                        ? AppColors.error500
+                        : AppColors
+                            .gray400), // Red border only on error + focus
+                borderRadius: BorderRadius.circular(10),
+              ),
+              hintText: widget.hintText ?? '',
+              hintStyle: TextStyle(
+                fontSize: 14.sp,
+                color: AppColors.gray400,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ),
         ),
-      ),
+
+        // Error message (placed outside the Container)
+        if (hasError) // Only show if there's an error
+          Padding(
+            padding: EdgeInsets.only(
+                top: 8.h), // Add spacing between field and error
+            child: Text(
+              widget.validator != null
+                  ? widget.validator!(widget.controller?.text) ??
+                      '' // Display error if any
+                  : '', // Show empty text if no validator
+              style: TextStyle(
+                color: AppColors.error500,
+                fontSize: 12.sp,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
