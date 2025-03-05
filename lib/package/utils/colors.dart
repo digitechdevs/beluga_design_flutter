@@ -26,6 +26,8 @@ class AppColors {
   static const Color purple700 = Color(0xFF3A21B2);
   static const Color purple800 = Color(0xFF271484);
   static const Color purple900 = Color(0xFF170C66);
+  static const Color radiocolor = Color(0xFF7A5AF8);
+  
 
   // Success (Green)
   static const Color success25 = Color(0xFFEDFDF2);

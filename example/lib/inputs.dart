@@ -28,29 +28,18 @@ class _InputFieldState extends State<InputField> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: BelugaTextField(
-                    hintText: 'Place holder',
-                    textInputType: TextInputType.text,
-                    maxLines: 1,
-                    readOnly: false,
-                    isEnabled: true,
-                    focus: true,
-                    enableDecoration: true,
-                    //isObscure: true,
-                    isSuffix: true,
-                    suffixSaxIcon: IconsaxPlusLinear.airpods,
-                    //isButtonSuffix: true,
-                    dropdownItems: const [
-                      "PAK",
-                      "USD",
-                      "CAD"
-                    ], // Dropdown options
-                    dropdownValue: "PAK", // Initially selected value
-                    onDropdownChanged: (String? newValue) {
-                      print("Selected value: $newValue");
-                    }
-
-                    //prefixIcon: ,
-                    ),
+                  hintText: 'Enter your text here',
+                  isObscure: false,
+                  isSuffix: false,
+                  textInputType: TextInputType.text,
+                  maxLines: 1,
+                  readOnly: false,
+                  isEnabled: true,
+                  focus: false,
+                  //prefixIcon: ,
+                  isPrefix: true,
+                  prefixSaxIcon: IconsaxPlusLinear.user,
+                ),
               ),
             ),
             const SizedBox(
