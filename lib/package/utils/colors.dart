@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Gray
   static const Color gray25 = Color(0xFFFAFAFA);
-  static const Color gray50 = Color(0xFFF0F0F0);
+  static const Color gray50 = Color(0xFFF9FAFB);
   static const Color gray100 = Color(0xFFE4E4E4);
   static const Color gray200 = Color(0xFFB2B2B2);
-  static const Color gray400 = Color(0xFF959595);
+  static const Color gray300 = Color(0xffD0D5DD);
+  static const Color gray400 = Color(0xFF98A2B3);
   static const Color gray500 = Color(0xFF646464);
   static const Color gray600 = Color(0xFF575757);
   static const Color gray700 = Color(0xFF323232);
@@ -19,7 +20,7 @@ class AppColors {
   static const Color purple100 = Color(0xFFD6CFFF);
   static const Color purple200 = Color(0xFFBCB3FF);
   static const Color purple300 = Color(0xFFA392FF);
-  static const Color purple400 = Color(0xFF846DFF);
+  static const Color purple400 = Color(0xFF9B8AFB);
   static const Color purple500 = Color(0xFF6547FF);
   static const Color purple600 = Color(0xFF4F30E0);
   static const Color purple700 = Color(0xFF3A21B2);
@@ -48,7 +49,7 @@ class AppColors {
   static const Color error200 = Color(0xFFFFA3A3);
   static const Color error300 = Color(0xFFFF8080);
   static const Color error400 = Color(0xFFFF5C5C);
-  static const Color error500 = Color(0xFFFF3D3D);
+  static const Color error500 = Color(0xFFF95555);
   static const Color error600 = Color(0xFFE02B2B);
   static const Color error700 = Color(0xFFB22222);
   static const Color error800 = Color(0xFF8C1717);

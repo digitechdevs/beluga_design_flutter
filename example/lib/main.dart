@@ -1,9 +1,6 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
-import 'package:example/Home_screen2.dart';
-import 'package:example/check_box_screen.dart';
-import 'package:example/home_screen.dart';
-// ignore: depend_on_referenced_packages
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:example/inputs.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,18 +17,58 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(390, 844), // Base screen size (example: iPhone X)
-      minTextAdapt: true, // Ensures text scaling
-      splitScreenMode: true, // Supports split-screen mode
-      builder: (context, child) {
-        return const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          // home: CheckBoxScreen(),
-          // home: HomeScreen(),
-          home: ExpenseCardExample(),
-        );
-      },
+    return const ScreenUtilInit(
+      designSize: Size(390, 812),
+      minTextAdapt: true,
+      child: MaterialApp(
+        home: BelugaDesignHome(),
+      ),
+    );
+  }
+}
+
+class BelugaDesignHome extends StatefulWidget {
+  const BelugaDesignHome({super.key});
+
+  @override
+  State<BelugaDesignHome> createState() => _BelugaDesignHomeState();
+}
+
+class _BelugaDesignHomeState extends State<BelugaDesignHome> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CupertinoButton.filled(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const InputField();
+                    },
+                  ),
+                );
+              },
+              child: const Text("Inputs"),
+            ),
+            const SizedBox(height: 20),
+            CupertinoButton.filled(
+              onPressed: () {},
+              child: const Text("Buttons"),
+            ),
+            const SizedBox(height: 20),
+            CupertinoButton.filled(
+              onPressed: () {},
+              child: const Text("Selectors"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
