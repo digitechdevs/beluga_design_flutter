@@ -7,13 +7,15 @@ class CustomTabBar extends StatelessWidget {
   final Color indicatorColor;
   final Color labelColor;
   final Color unselectedLabelColor;
+  final TabController tabController; 
 
   const CustomTabBar({
     super.key,
+     required this.tabController,
     required this.tabs,
     required this.tabViews,
     this.backgroundColor = Colors.white,
-    this.indicatorColor = const Color(0xff9747FF),
+    this.indicatorColor = const Color(0xff7A5AF8),
     this.labelColor = Colors.white,
     this.unselectedLabelColor = Colors.black,
   });
@@ -21,26 +23,28 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      animationDuration: const Duration(milliseconds: 500),
       length: tabs.length,
       child: Scaffold(
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Container(
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(100),
                 ),
                 child: TabBar(
+                   controller: tabController,
                   dividerColor: Colors.transparent,
                   tabs: tabs,
-                  // indicatorPadding: E
+                  
                   indicatorSize: TabBarIndicatorSize.tab,
                   // indicatorColor: indicatorColor,
                   indicator: BoxDecoration(
-                    color: indicatorColor, // Background color of the indicator
-                    borderRadius: BorderRadius.circular(20), // Rounded corners
+                    color: indicatorColor,
+                    borderRadius: BorderRadius.circular(100),
                   ),
                   labelColor: labelColor,
                   unselectedLabelColor: unselectedLabelColor,
@@ -49,6 +53,7 @@ class CustomTabBar extends StatelessWidget {
             ),
             Expanded(
               child: TabBarView(
+                controller: tabController,
                 children: tabViews,
               ),
             )
@@ -58,6 +63,10 @@ class CustomTabBar extends StatelessWidget {
     );
   }
 }
+
+
+
+
 // import 'package:flutter/material.dart';
 
 // class CustomTabBar extends StatefulWidget {
