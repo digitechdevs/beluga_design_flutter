@@ -1,21 +1,25 @@
-name: beluga_design_flutter
+name: example
 description: "A new Flutter project."
+
 publish_to: "none"
-version: 0.1.0
+
+version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.5 <4.0.0"
+  sdk: ^3.5.3
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^5.9.3
-  flutter_svg: ^2.0.17
-  iconsax_plus: ^1.0.0
+  beluga_design_flutter:
+    path: ../
+
+  cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^4.0.0
 
 flutter:
