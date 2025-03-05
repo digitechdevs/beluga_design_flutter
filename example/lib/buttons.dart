@@ -1,7 +1,8 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
+import 'package:beluga_design_flutter/package/components/buttons/onboarding_main_button.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class Buttons extends StatelessWidget {
+  const Buttons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +83,10 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
+            CustomGradientButton(
+              text: "hello",
+              onPressed: () {},
+            )
           ],
         ),
       ),
