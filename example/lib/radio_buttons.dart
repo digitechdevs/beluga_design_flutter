@@ -1,15 +1,13 @@
-import 'package:beluga_design_flutter/package/components/checkboxes/radio_buttons.dart';
-import 'package:beluga_design_flutter/package/utils/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:beluga_design_flutter/beluga_design.dart';
 
-class RadioButtonScreen extends StatefulWidget {
-  const RadioButtonScreen({super.key});
+class RadioButtons extends StatefulWidget {
+  const RadioButtons({super.key});
 
   @override
-  State<RadioButtonScreen> createState() => _RadioButtonScreenState();
+  State<RadioButtons> createState() => _RadioButtonsState();
 }
 
-class _RadioButtonScreenState extends State<RadioButtonScreen> {
+class _RadioButtonsState extends State<RadioButtons> {
   String _selectedOption = 'Option 1';
   String selectedOption2 = 'Option 2';
 

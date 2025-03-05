@@ -1,5 +1,7 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
+import 'package:example/checkboxes.dart';
 import 'package:example/inputs.dart';
+import 'package:example/radio_buttons.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
@@ -26,6 +28,9 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+
 
 class BelugaDesignHome extends StatefulWidget {
   const BelugaDesignHome({super.key});
@@ -63,8 +68,31 @@ class _BelugaDesignHomeState extends State<BelugaDesignHome> {
             ),
             const SizedBox(height: 20),
             CupertinoButton.filled(
-              onPressed: () {},
-              child: const Text("Selectors"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const RadioButtons();
+                    },
+                  ),
+                );
+              },
+              child: const Text("Radio Buttons"),
+            ),
+            const SizedBox(height: 20),
+            CupertinoButton.filled(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const CheckBoxes();
+                    },
+                  ),
+                );
+              },
+              child: const Text("Checkboxes"),
             ),
           ],
         ),
