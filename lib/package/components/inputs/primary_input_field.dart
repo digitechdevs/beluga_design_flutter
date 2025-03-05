@@ -261,6 +261,7 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                 color: AppColors.gray400,
                 fontWeight: FontWeight.w400,
               ),
+              errorStyle: const TextStyle(height: -1, fontSize: 0),
             ),
           ),
         ),
@@ -269,7 +270,7 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
         if (hasError) // Only show if there's an error
           Padding(
             padding: EdgeInsets.only(
-                top: 8.h), // Add spacing between field and error
+                top: 5.h), // Add spacing between field and error
             child: Text(
               widget.validator != null
                   ? widget.validator!(widget.controller?.text) ??
