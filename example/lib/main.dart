@@ -105,9 +105,6 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            const CustomGradientElevatedButton(
-              text: "heelo",
-            )
           ],
         ),
       ),
