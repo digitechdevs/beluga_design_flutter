@@ -1,8 +1,4 @@
-import 'package:beluga_design_flutter/package/components/checkboxes/checkboxes.dart';
-import 'package:beluga_design_flutter/package/utils/colors.dart';
-import 'package:example/main.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:beluga_design_flutter/beluga_design.dart';
 
 class CheckBoxScreen extends StatefulWidget {
   const CheckBoxScreen({super.key});
@@ -27,7 +23,7 @@ class _CheckBoxScreenState extends State<CheckBoxScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             BelugaCheckbox(
-              size: 16.sp,
+              size: 16,
               value: isChecked,
               onChanged: (value) {
                 setState(() {
@@ -40,7 +36,7 @@ class _CheckBoxScreenState extends State<CheckBoxScreen> {
             ),
             const SizedBox(height: 20),
             BelugaCheckbox(
-              size: 16.sp,
+              size: 16,
               value: isChecked1,
               onChanged: (value) {
                 setState(() {
@@ -55,7 +51,7 @@ class _CheckBoxScreenState extends State<CheckBoxScreen> {
             ),
             const SizedBox(height: 20),
             BelugaCheckbox(
-              size: 16.sp,
+              size: 16,
               value: isChecked3,
 
               onChanged: (value) {
@@ -75,7 +71,7 @@ class _CheckBoxScreenState extends State<CheckBoxScreen> {
               height: 20,
             ),
             BelugaCheckbox(
-              size: 16.sp,
+              size: 16,
               value: isChecked4,
 
               onChanged: (value) {
@@ -94,7 +90,7 @@ class _CheckBoxScreenState extends State<CheckBoxScreen> {
               height: 20,
             ),
             BelugaCheckbox(
-              size: 16.sp,
+              size: 16,
               value: isChecked5,
 
               onChanged: (value) {

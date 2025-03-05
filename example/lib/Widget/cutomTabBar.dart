@@ -7,11 +7,13 @@ class CustomTabBar extends StatelessWidget {
   final Color indicatorColor;
   final Color labelColor;
   final Color unselectedLabelColor;
-  final TabController tabController; 
+  final TabController tabController;
+  final double height;
 
   const CustomTabBar({
     super.key,
-     required this.tabController,
+    this.height = 36,
+    required this.tabController,
     required this.tabs,
     required this.tabViews,
     this.backgroundColor = Colors.white,
@@ -31,15 +33,16 @@ class CustomTabBar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2),
               child: Container(
+                height: height,
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: TabBar(
-                   controller: tabController,
+                  controller: tabController,
                   dividerColor: Colors.transparent,
                   tabs: tabs,
-                  
+
                   indicatorSize: TabBarIndicatorSize.tab,
                   // indicatorColor: indicatorColor,
                   indicator: BoxDecoration(
@@ -47,6 +50,7 @@ class CustomTabBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                   labelColor: labelColor,
+                  // labelStyle: TextStyle(),
                   unselectedLabelColor: unselectedLabelColor,
                 ),
               ),

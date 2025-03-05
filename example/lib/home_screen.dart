@@ -1,6 +1,5 @@
 import 'package:example/Widget/cutomTabBar.dart';
 import 'package:flutter/material.dart';
-
 import 'package:example/Widget/tab_row.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,13 +9,17 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+    );
     _tabController.addListener(() {
       setState(() {}); // Updates UI when tab selection changes
     });
@@ -34,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       body: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: CustomTabBar(
+          height: 36,
           tabs: [
             Tab(
               child: TabUtil.myTab(

@@ -1,7 +1,7 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
+import 'package:example/Home_screen2.dart';
 import 'package:example/check_box_screen.dart';
 import 'package:example/home_screen.dart';
-import 'package:example/radio_button_screen.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,10 +25,11 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true, // Ensures text scaling
       splitScreenMode: true, // Supports split-screen mode
       builder: (context, child) {
-        return MaterialApp(
+        return const MaterialApp(
           debugShowCheckedModeBanner: false,
           // home: CheckBoxScreen(),
-          home: const HomeScreen(),
+          // home: HomeScreen(),
+          home: ExpenseCardExample(),
         );
       },
     );

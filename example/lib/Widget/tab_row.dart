@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TabUtil {
- static Widget myTab({required String text, required int count, required bool isSelected,}) {
+  static Widget myTab({
+    required String text,
+    required int count,
+    required bool isSelected,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -10,13 +14,15 @@ class TabUtil {
         const SizedBox(width: 10),
         Container(
           padding: const EdgeInsets.all(6),
-          decoration:  BoxDecoration(
-            color:  isSelected ? Colors.red : Colors.grey[300], // Badge color change
+          decoration: BoxDecoration(
+            color: isSelected
+                ? Colors.red
+                : Colors.grey[300], // Badge color change
             shape: BoxShape.circle,
           ),
           constraints: const BoxConstraints(
-            minWidth: 20,
-            minHeight: 20,
+            minWidth: 16,
+            minHeight: 16,
           ),
           child: Center(
             child: Text(
@@ -24,7 +30,7 @@ class TabUtil {
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: 10,
               ),
             ),
           ),
