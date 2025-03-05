@@ -153,12 +153,13 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               prefixIcon: widget.isPrefix
                   ? (widget.isButtonPrefix
                       ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.only(left: 13.0, right: 10),
                           child: widget.prefixButton ??
                               DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   icon: const Padding(
-                                    padding: EdgeInsets.only(left: 2.0),
+                                    padding:
+                                        EdgeInsets.only(left: 3, bottom: 3),
                                     child: Icon(IconsaxPlusLinear.arrow_down,
                                         size: 22, color: AppColors.purple400),
                                   ),
