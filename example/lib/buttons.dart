@@ -1,8 +1,7 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
+class Buttons extends StatelessWidget {
+  const Buttons({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +80,10 @@ class MyHomePage extends StatelessWidget {
             ),
             const SizedBox(
               height: 25,
+            ),
+           BelugaElevated(
+              onPressed: () {},
+              text: 'Button CTA',
             ),
           ],
         ),
