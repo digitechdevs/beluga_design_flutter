@@ -120,7 +120,7 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                           : [],
                 )
               : null,
-          clipBehavior: Clip.hardEdge,
+          //clipBehavior: Clip.hardEdge,
           child: TextFormField(
             enabled: widget.isEnabled,
             focusNode: _focusNode,

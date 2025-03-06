@@ -283,48 +283,48 @@ class _InputFieldState extends State<InputField> {
               const SizedBox(
                 height: 50,
               ),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              //     child: BelugaTextField(
-              //         hintText: 'Enter your text here',
-              //         controller: TextEditingController(),
-              //         validator: (value) {
-              //           if (value == null || value.isEmpty) {
-              //             return "This field is required";
-              //           }
-              //           final emailRegex = RegExp(
-              //               r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-              //           if (!emailRegex.hasMatch(value)) {
-              //             return "Enter a valid email";
-              //           }
-              //           return null; // ✅ No error (Explicitly returning null is correct)
-              //         },
-              //         //focus: _hasError, // Trigger red border when error exists
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: BelugaTextField(
+                      hintText: 'Enter your text here',
+                      controller: TextEditingController(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "This field is required";
+                        }
+                        final emailRegex = RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                        if (!emailRegex.hasMatch(value)) {
+                          return "Enter a valid email";
+                        }
+                        return null; // ✅ No error (Explicitly returning null is correct)
+                      },
+                      //focus: _hasError, // Trigger red border when error exists
 
-              //         //  isObscure: false,
-              //         // isSuffix: false,
-              //         textInputType: TextInputType.text,
-              //         maxLines: 1,
-              //         readOnly: false,
-              //         isEnabled: true,
-              //         enableDecoration: true,
-              //         focus: true,
-              //         //prefixIcon: ,
-              //         isPrefix: true,
-              //         prefixSaxIcon: IconsaxPlusLinear.finger_scan,
-              //         isButtonPrefix: false, // Enables the dropdown button
-              //         dropdownItems: const [
-              //           "PAK",
-              //           "USD",
-              //           "CAD"
-              //         ], // Dropdown options
-              //         dropdownValue: "PAK", // Initially selected value
-              //         onDropdownChanged: (String? newValue) {
-              //           print("Selected value: $newValue");
-              //         }),
-              //   ),
-              // ),
+                      //  isObscure: false,
+                      // isSuffix: false,
+                      textInputType: TextInputType.text,
+                      maxLines: 1,
+                      readOnly: false,
+                      isEnabled: true,
+                      enableDecoration: true,
+                      focus: true,
+                      //prefixIcon: ,
+                      isPrefix: true,
+                      prefixSaxIcon: IconsaxPlusLinear.finger_scan,
+                      isButtonPrefix: false, // Enables the dropdown button
+                      dropdownItems: const [
+                        "PAK",
+                        "USD",
+                        "CAD"
+                      ], // Dropdown options
+                      dropdownValue: "PAK", // Initially selected value
+                      onDropdownChanged: (String? newValue) {
+                        print("Selected value: $newValue");
+                      }),
+                ),
+              ),
               ElevatedButton(
                 onPressed: _validateForm,
                 child: const Text("Submit"),
