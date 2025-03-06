@@ -2,6 +2,8 @@ import 'package:beluga_design_flutter/beluga_design.dart';
 
 class BelugaTextField extends StatefulWidget {
   final TextEditingController? controller;
+  final String? labelText;
+  final TextStyle? labelStyle;
   final String? hintText;
   final bool isButtonPrefix;
   final bool isButtonSuffix;
@@ -58,6 +60,8 @@ class BelugaTextField extends StatefulWidget {
     this.isButtonSuffix = false,
     this.suffixButton,
     this.suffixSaxIcon,
+    this.labelText,
+    this.labelStyle,
   });
 
   @override
@@ -90,6 +94,20 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start, // Align items to the start
       children: [
+        if (widget.labelText != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Text(
+              widget.labelText!,
+              style: widget.labelStyle ??
+                  TextStyle(
+                      fontSize: 12.sp,
+                      color: AppColors.gray400,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter'),
+            ),
+          ),
+
         // Container with BoxDecoration for the TextFormField
         Container(
           decoration: widget.enableDecoration
@@ -146,6 +164,11 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textAlign: TextAlign.start,
             cursorColor: AppColors.purple900,
+            style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textPrimary,
+                fontFamily: 'Inter'),
             obscureText: widget.isObscure,
             maxLines: widget.maxLines,
             decoration: InputDecoration(
@@ -279,10 +302,10 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               ),
               hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
-                fontSize: 14.sp,
-                color: AppColors.gray400,
-                fontWeight: FontWeight.w400,
-              ),
+                  fontSize: 14.sp,
+                  color: AppColors.gray400,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Inter'),
               errorStyle: const TextStyle(height: -1, fontSize: 0),
             ),
           ),
@@ -301,6 +324,8 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               style: TextStyle(
                 color: AppColors.error500,
                 fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Inter',
               ),
             ),
           ),

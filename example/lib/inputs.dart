@@ -49,6 +49,7 @@ class _InputFieldState extends State<InputField> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: BelugaTextField(
+                  labelText: 'Label Text',
                   hintText: 'Placeholder',
                   isObscure: false,
                   isSuffix: false,
