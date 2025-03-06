@@ -25,7 +25,7 @@ class _InputFieldState extends State<InputField> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               // Center(
@@ -178,8 +178,28 @@ class _InputFieldState extends State<InputField> {
                   focus: true,
                   isPrefix: true,
                   prefixSaxIcon: IconsaxPlusLinear.location_tick,
-                  isButtonSuffix: true,
-                  suffixSaxIcon: IconsaxPlusLinear.location_tick,
+                  //isButtonSuffix: true,
+                  //suffixSaxIcon: IconsaxPlusLinear.location_tick,
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: BelugaTextField(
+                  hintText: 'Placeholder',
+                  isObscure: false,
+                  isSuffix: false,
+                  textInputType: TextInputType.text,
+                  maxLines: 1,
+                  readOnly: false,
+                  isEnabled: false,
+                  focus: true,
+                  isPrefix: true,
+                  prefixSaxIcon: IconsaxPlusLinear.location_tick,
+                  //isButtonSuffix: true,
+                  //suffixSaxIcon: IconsaxPlusLinear.location_tick,
                 ),
               ),
               const SizedBox(
@@ -226,7 +246,7 @@ class _InputFieldState extends State<InputField> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: BelugaTextField(
-                  hintText: 'Placeholder',
+                  hintText: 'My Password',
                   isObscure: true,
                   isSuffix: true,
                   textInputType: TextInputType.text,
@@ -236,58 +256,78 @@ class _InputFieldState extends State<InputField> {
                   focus: true,
                   isPrefix: true,
                   prefixSaxIcon: IconsaxPlusLinear.finger_scan,
-                  isButtonSuffix: true,
-                  suffixSaxIcon: IconsaxPlusLinear.finger_scan,
+                  //isButtonSuffix: true,
+                  //suffixSaxIcon: IconsaxPlusLinear.alarm,
                 ),
               ),
               const SizedBox(
                 height: 50,
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: BelugaTextField(
-                      hintText: 'Enter your text here',
-                      controller: TextEditingController(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "This field is required";
-                        }
-                        final emailRegex = RegExp(
-                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-                        if (!emailRegex.hasMatch(value)) {
-                          return "Enter a valid email";
-                        }
-                        return null; // ✅ No error (Explicitly returning null is correct)
-                      },
-                      //focus: _hasError, // Trigger red border when error exists
-
-                      //  isObscure: false,
-                      // isSuffix: false,
-                      textInputType: TextInputType.text,
-                      maxLines: 1,
-                      readOnly: false,
-                      isEnabled: true,
-                      enableDecoration: true,
-                      focus: true,
-                      //prefixIcon: ,
-                      isPrefix: true,
-                      prefixSaxIcon: IconsaxPlusLinear.finger_scan,
-                      isButtonPrefix: false, // Enables the dropdown button
-                      dropdownItems: const [
-                        "PAK",
-                        "USD",
-                        "CAD"
-                      ], // Dropdown options
-                      dropdownValue: "PAK", // Initially selected value
-                      onDropdownChanged: (String? newValue) {
-                        print("Selected value: $newValue");
-                      }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: BelugaTextField(
+                  hintText: 'My Password',
+                  isObscure: true,
+                  isSuffix: true,
+                  textInputType: TextInputType.text,
+                  maxLines: 1,
+                  readOnly: false,
+                  isEnabled: false,
+                  focus: true,
+                  isPrefix: true,
+                  prefixSaxIcon: IconsaxPlusLinear.finger_scan,
+                  //isButtonSuffix: true,
+                  //suffixSaxIcon: IconsaxPlusLinear.alarm,
                 ),
               ),
+              const SizedBox(
+                height: 50,
+              ),
+              // Center(
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              //     child: BelugaTextField(
+              //         hintText: 'Enter your text here',
+              //         controller: TextEditingController(),
+              //         validator: (value) {
+              //           if (value == null || value.isEmpty) {
+              //             return "This field is required";
+              //           }
+              //           final emailRegex = RegExp(
+              //               r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+              //           if (!emailRegex.hasMatch(value)) {
+              //             return "Enter a valid email";
+              //           }
+              //           return null; // ✅ No error (Explicitly returning null is correct)
+              //         },
+              //         //focus: _hasError, // Trigger red border when error exists
+
+              //         //  isObscure: false,
+              //         // isSuffix: false,
+              //         textInputType: TextInputType.text,
+              //         maxLines: 1,
+              //         readOnly: false,
+              //         isEnabled: true,
+              //         enableDecoration: true,
+              //         focus: true,
+              //         //prefixIcon: ,
+              //         isPrefix: true,
+              //         prefixSaxIcon: IconsaxPlusLinear.finger_scan,
+              //         isButtonPrefix: false, // Enables the dropdown button
+              //         dropdownItems: const [
+              //           "PAK",
+              //           "USD",
+              //           "CAD"
+              //         ], // Dropdown options
+              //         dropdownValue: "PAK", // Initially selected value
+              //         onDropdownChanged: (String? newValue) {
+              //           print("Selected value: $newValue");
+              //         }),
+              //   ),
+              // ),
               ElevatedButton(
                 onPressed: _validateForm,
-                child: Text("Submit"),
+                child: const Text("Submit"),
               ),
               const SizedBox(
                 height: 50,

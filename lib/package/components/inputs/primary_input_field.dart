@@ -14,7 +14,7 @@ class BelugaTextField extends StatefulWidget {
   final IconData? suffixIcon;
   final String? prefixIcon;
   final IconData prefixSaxIcon; // Dynamic prefix icon
-  final IconData suffixSaxIcon; // Dynamic prefix icon
+  final IconData? suffixSaxIcon; // Dynamic prefix icon
   final String? Function(String?)? validator;
   final int maxLines;
   final bool readOnly;
@@ -57,7 +57,7 @@ class BelugaTextField extends StatefulWidget {
     this.enableDecoration = true,
     this.isButtonSuffix = false,
     this.suffixButton,
-    this.suffixSaxIcon = IconsaxPlusLinear.user, // Default icon
+    this.suffixSaxIcon,
   });
 
   @override
@@ -176,8 +176,19 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                               ),
                         )
                       : (widget.prefixIcon != null
-                          ? const Icon(IconsaxPlusLinear.user, size: 24)
-                          : Icon(widget.prefixSaxIcon)))
+                          ? Icon(
+                              IconsaxPlusLinear.user,
+                              size: 24,
+                              color: widget.isEnabled!
+                                  ? AppColors.purple400
+                                  : AppColors.gray400,
+                            )
+                          : Icon(
+                              widget.prefixSaxIcon,
+                              color: widget.isEnabled!
+                                  ? AppColors.purple400
+                                  : AppColors.gray400,
+                            )))
                   : null,
               suffixIcon: widget.isSuffix
                   ? (widget.isButtonSuffix
@@ -205,17 +216,27 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                         )
                       : IconButton(
                           splashRadius: 25.r,
-                          onPressed: () {
-                            setState(() {
-                              widget.isObscure = !widget.isObscure;
-                            });
-                          },
+                          onPressed: widget.isEnabled!
+                              ? () {
+                                  setState(() {
+                                    widget.isObscure = !widget.isObscure;
+                                  });
+                                }
+                              : null,
                           icon: widget.suffixSaxIcon != null
-                              ? Icon(widget.suffixSaxIcon)
+                              ? Icon(
+                                  widget.suffixSaxIcon!,
+                                  color: widget.isEnabled!
+                                      ? AppColors.purple400
+                                      : AppColors.gray400,
+                                )
                               : Icon(
                                   widget.isObscure
                                       ? IconsaxPlusLinear.eye_slash
                                       : IconsaxPlusLinear.eye,
+                                  color: widget.isEnabled!
+                                      ? AppColors.purple400
+                                      : AppColors.gray400,
                                 ),
                         ))
                   : null,
