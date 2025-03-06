@@ -124,7 +124,7 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-class CustomOutlinedButton extends StatelessWidget {
+class BelugaOutlined extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color borderColor;
@@ -144,13 +144,13 @@ class CustomOutlinedButton extends StatelessWidget {
   final String? imagePath;
   final bool showSocial;
 
-  const CustomOutlinedButton(
+  const BelugaOutlined(
       {super.key,
       this.text = "Button CTA",
       this.onPressed,
       this.borderColor = const Color(0xFF6A35FC), // Default Purple Color
       this.textColor = const Color(0xFF6A35FC),
-      this.fontSize = 16.0,
+      this.fontSize = 14.0,
       this.borderWidth = 2.0,
       this.borderRadius = 30.0, // High radius for pill shape
       this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -204,4 +204,3 @@ class CustomOutlinedButton extends StatelessWidget {
     );
   }
 }
-

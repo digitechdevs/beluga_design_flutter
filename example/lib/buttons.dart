@@ -69,7 +69,7 @@ class Buttons extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            CustomOutlinedButton(
+            BelugaOutlined(
               borderRadius: 100,
               borderColor: const Color(0xff6938EF),
               borderWidth: 1,
@@ -81,7 +81,7 @@ class Buttons extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-           BelugaElevated(
+            BelugaElevated(
               onPressed: () {},
               text: 'Button CTA',
             ),
