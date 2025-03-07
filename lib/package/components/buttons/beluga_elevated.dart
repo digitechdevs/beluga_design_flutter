@@ -1,17 +1,24 @@
-
 import 'package:beluga_design_flutter/beluga_design.dart';
 
 class BelugaElevated extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  const BelugaElevated(
-      {super.key, required this.text, required this.onPressed});
+  final BorderRadiusGeometry? borderRadius;
+  final String svgImagePath;
+  const BelugaElevated({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    this.borderRadius,
+    this.svgImagePath = '',
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30), // Adjust for rounded edges
+        borderRadius: borderRadius ??
+            BorderRadius.circular(30), // Adjust for rounded edges
         gradient: const LinearGradient(
           colors: [Color(0xFF8862F2), Color(0xFF7544FC), Color(0xFF5B2ED4)],
           begin: Alignment.topCenter,
@@ -39,17 +46,17 @@ class BelugaElevated extends StatelessWidget {
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: borderRadius ?? BorderRadius.circular(30),
             ),
           ),
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: svgImagePath.isEmpty
+              ? Text(text,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ))
+              : SvgPicture.asset(svgImagePath),
         ),
       ),
     );
