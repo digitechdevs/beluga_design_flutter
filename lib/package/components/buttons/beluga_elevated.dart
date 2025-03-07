@@ -95,6 +95,7 @@ class BelugaElevated extends StatelessWidget {
   final double? svgheight;
   final double? svgwidth;
   final Widget? child;
+  final EdgeInsetsGeometry? padding;
 
   const BelugaElevated({
     super.key,
@@ -106,6 +107,7 @@ class BelugaElevated extends StatelessWidget {
     this.svgheight,
     this.svgwidth,
     this.textStyle,
+    this.padding,
   });
 
   @override
@@ -137,7 +139,8 @@ class BelugaElevated extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            padding: padding ??
+                const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(borderRadius: resolvedRadius),
