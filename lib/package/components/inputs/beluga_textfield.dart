@@ -102,7 +102,7 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               style: widget.labelStyle ??
                   TextStyle(
                       fontSize: 12.sp,
-                      color: AppColors.gray400,
+                      color: AppColors.gray600,
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Inter'),
             ),
