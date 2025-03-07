@@ -90,14 +90,18 @@ class BelugaElevated extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final BorderRadiusGeometry? borderRadius;
-  final String svgImagePath;
+  final String svgPath;
+  final double? svgheight;
+  final double? svgwidth;
+  final Widget? child;
 
   const BelugaElevated({
     super.key,
     required this.text,
     required this.onPressed,
     this.borderRadius,
-    this.svgImagePath = '',
+    this.svgPath = '',
+    this.child, this.svgheight, this.svgwidth,
   });
 
   @override
@@ -134,16 +138,20 @@ class BelugaElevated extends StatelessWidget {
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(borderRadius: resolvedRadius),
           ),
-          child: svgImagePath.isEmpty
-              ? Text(
-                  text,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              : SvgPicture.asset(svgImagePath),
+          child: svgPath.isEmpty
+              ? child ??
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+              : SvgPicture.asset(svgPath,
+              height: svgheight,
+              width: svgwidth,
+              ),
         ),
       ),
     );
