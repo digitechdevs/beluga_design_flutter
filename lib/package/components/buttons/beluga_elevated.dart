@@ -88,6 +88,7 @@ import 'package:beluga_design_flutter/beluga_design.dart';
 
 class BelugaElevated extends StatelessWidget {
   final String text;
+  final TextStyle? textStyle;
   final VoidCallback onPressed;
   final BorderRadiusGeometry? borderRadius;
   final String svgPath;
@@ -101,7 +102,10 @@ class BelugaElevated extends StatelessWidget {
     required this.onPressed,
     this.borderRadius,
     this.svgPath = '',
-    this.child, this.svgheight, this.svgwidth,
+    this.child,
+    this.svgheight,
+    this.svgwidth,
+    this.textStyle,
   });
 
   @override
@@ -142,16 +146,18 @@ class BelugaElevated extends StatelessWidget {
               ? child ??
                   Text(
                     text,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: textStyle ??
+                        const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                   )
-              : SvgPicture.asset(svgPath,
-              height: svgheight,
-              width: svgwidth,
-              ),
+              : SvgPicture.asset(
+                  svgPath,
+                  height: svgheight,
+                  width: svgwidth,
+                ),
         ),
       ),
     );
