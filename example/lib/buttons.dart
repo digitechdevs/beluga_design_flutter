@@ -76,8 +76,11 @@ class Buttons extends StatelessWidget {
               borderColor: const Color(0xff6938EF),
               borderWidth: 1,
               onPressed: () {},
-              icon: Icons.insert_chart_outlined_sharp,
+              // icon: Icons.insert_chart_outlined_sharp,
               text: "sign in with google",
+              socialIcon: SocialIcons.google,
+              // icon: Icons.add_ic_call_sharp,
+
               // autofocus: true,
             ),
             const SizedBox(
