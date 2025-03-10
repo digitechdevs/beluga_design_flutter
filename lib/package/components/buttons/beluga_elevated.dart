@@ -1,4 +1,3 @@
-
 import 'package:beluga_design_flutter/beluga_design.dart';
 
 class BelugaElevated extends StatelessWidget {
