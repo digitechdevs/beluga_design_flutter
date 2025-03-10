@@ -1,4 +1,6 @@
+import 'package:beluga_design_flutter/package/components/buttons/beluga_elevated.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // // class CustomOutlineButton extends StatelessWidget {
 // //   final String text;
@@ -132,7 +134,7 @@ class BelugaOutlined extends StatelessWidget {
   final double fontSize;
   final double borderWidth;
   final double borderRadius;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final IconData? icon;
   final double iconSize;
   final double? width;
@@ -153,7 +155,7 @@ class BelugaOutlined extends StatelessWidget {
       this.fontSize = 14.0,
       this.borderWidth = 2.0,
       this.borderRadius = 30.0, // High radius for pill shape
-      this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      this.padding,
       this.icon,
       this.iconSize = 20.0,
       this.width,
@@ -171,7 +173,8 @@ class BelugaOutlined extends StatelessWidget {
       onPressed: onPressed ?? () {},
       style: style ??
           OutlinedButton.styleFrom(
-            padding: padding,
+            padding:
+                padding ?? EdgeInsets.symmetric(horizontal: 20, vertical: 12.h),
             side: BorderSide(
               color: borderColor,
               width: borderWidth,
@@ -194,7 +197,7 @@ class BelugaOutlined extends StatelessWidget {
                 text,
                 style: textStyle ??
                     TextStyle(
-                      fontSize: fontSize,
+                      fontSize: fontSize.sp,
                       color: textColor,
                       fontWeight: FontWeight.w500,
                     ),

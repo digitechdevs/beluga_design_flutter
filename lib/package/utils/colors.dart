@@ -9,7 +9,7 @@ class AppColors {
   static const Color gray300 = Color(0xffD0D5DD);
   static const Color gray400 = Color(0xFF98A2B3);
   static const Color gray500 = Color(0xFF646464);
-  static const Color gray600 = Color(0xFF575757);
+  static const Color gray600 = Color(0xFF475467);
   static const Color gray700 = Color(0xFF323232);
   static const Color gray800 = Color(0xFF1E1E1E);
   static const Color gray900 = Color(0xFF0E0E0E);
