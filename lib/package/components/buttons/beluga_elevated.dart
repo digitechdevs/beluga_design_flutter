@@ -140,7 +140,7 @@ class BelugaElevated extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             padding: padding ??
-                const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                EdgeInsets.symmetric(horizontal: 40.w, vertical: 14.h),
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(borderRadius: resolvedRadius),
@@ -150,9 +150,9 @@ class BelugaElevated extends StatelessWidget {
                   Text(
                     text,
                     style: textStyle ??
-                        const TextStyle(
+                        TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                         ),
                   )
