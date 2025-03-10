@@ -72,6 +72,16 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
   final FocusNode _focusNode = FocusNode();
   bool focused = false;
   bool hasError = false;
+  String? currentError;
+
+  void updateErrorState(String? error) {
+    if (mounted) {
+      setState(() {
+        hasError = error != null;
+        currentError = error;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -144,15 +154,15 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
             focusNode: _focusNode,
             onChanged: (value) {
               final error = widget.validator?.call(value);
-              if (hasError != (error != null)) {
-                setState(() {
-                  hasError = error != null; // Update error state
-                });
-              }
-              widget.onChanged
-                  ?.call(value); // Call the external onChanged callback
+              updateErrorState(error);
+              widget.onChanged?.call(value);
             },
-            validator: widget.validator,
+            validator: (value) {
+              final error = widget.validator?.call(value);
+              // Use Future.microtask to schedule setState after build
+              Future.microtask(() => updateErrorState(error));
+              return error;
+            },
             textInputAction:
                 widget.isLast ? TextInputAction.done : TextInputAction.next,
             onTap: widget.onTap,
@@ -311,16 +321,11 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
           ),
         ),
 
-        // Error message (placed outside the Container)
-        if (hasError) // Only show if there's an error
+        if (hasError && currentError != null)
           Padding(
-            padding: EdgeInsets.only(
-                top: 5.h), // Add spacing between field and error
+            padding: EdgeInsets.only(top: 5.h),
             child: Text(
-              widget.validator != null
-                  ? widget.validator!(widget.controller?.text) ??
-                      '' // Display error if any
-                  : '', // Show empty text if no validator
+              currentError!,
               style: TextStyle(
                 color: AppColors.error500,
                 fontSize: 12.sp,
