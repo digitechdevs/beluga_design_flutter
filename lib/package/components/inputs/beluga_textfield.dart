@@ -1,7 +1,11 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
+import 'package:beluga_design_flutter/package/utils/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BelugaTextField extends StatefulWidget {
   final TextEditingController? controller;
+  final String? labelText;
+  final TextStyle? labelStyle;
   final String? hintText;
   final bool isButtonPrefix;
   final bool isButtonSuffix;
@@ -14,7 +18,7 @@ class BelugaTextField extends StatefulWidget {
   final IconData? suffixIcon;
   final String? prefixIcon;
   final IconData prefixSaxIcon; // Dynamic prefix icon
-  final IconData suffixSaxIcon; // Dynamic prefix icon
+  final IconData? suffixSaxIcon; // Dynamic prefix icon
   final String? Function(String?)? validator;
   final int maxLines;
   final bool readOnly;
@@ -57,7 +61,9 @@ class BelugaTextField extends StatefulWidget {
     this.enableDecoration = true,
     this.isButtonSuffix = false,
     this.suffixButton,
-    this.suffixSaxIcon = IconsaxPlusLinear.user, // Default icon
+    this.suffixSaxIcon,
+    this.labelText,
+    this.labelStyle,
   });
 
   @override
@@ -68,6 +74,16 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
   final FocusNode _focusNode = FocusNode();
   bool focused = false;
   bool hasError = false;
+  String? currentError;
+
+  void updateErrorState(String? error) {
+    if (mounted) {
+      setState(() {
+        hasError = error != null;
+        currentError = error;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -90,6 +106,20 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start, // Align items to the start
       children: [
+        if (widget.labelText != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Text(
+              widget.labelText!,
+              style: widget.labelStyle ??
+                  TextStyle(
+                      fontSize: 12.sp,
+                      color: AppColors.gray600,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter'),
+            ),
+          ),
+
         // Container with BoxDecoration for the TextFormField
         Container(
           decoration: widget.enableDecoration
@@ -111,7 +141,7 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                       : focused
                           ? [
                               BoxShadow(
-                                color: AppColors.purple400.withOpacity(0.3),
+                                color: AppColors.purple400.withOpacity(0.2),
                                 blurRadius: 0,
                                 spreadRadius: 2,
                                 offset: const Offset(0, 0),
@@ -120,21 +150,21 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                           : [],
                 )
               : null,
-          clipBehavior: Clip.hardEdge,
+          //clipBehavior: Clip.hardEdge,
           child: TextFormField(
             enabled: widget.isEnabled,
             focusNode: _focusNode,
             onChanged: (value) {
               final error = widget.validator?.call(value);
-              if (hasError != (error != null)) {
-                setState(() {
-                  hasError = error != null; // Update error state
-                });
-              }
-              widget.onChanged
-                  ?.call(value); // Call the external onChanged callback
+              updateErrorState(error);
+              widget.onChanged?.call(value);
             },
-            validator: widget.validator,
+            validator: (value) {
+              final error = widget.validator?.call(value);
+              // Use Future.microtask to schedule setState after build
+              Future.microtask(() => updateErrorState(error));
+              return error;
+            },
             textInputAction:
                 widget.isLast ? TextInputAction.done : TextInputAction.next,
             onTap: widget.onTap,
@@ -145,7 +175,12 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
             controller: widget.controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textAlign: TextAlign.start,
-            cursorColor: AppColors.purple900,
+            cursorColor: AppColors.purple900, // Black cursor
+            style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textPrimary,
+                fontFamily: 'Inter'),
             obscureText: widget.isObscure,
             maxLines: widget.maxLines,
             decoration: InputDecoration(
@@ -153,14 +188,16 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               prefixIcon: widget.isPrefix
                   ? (widget.isButtonPrefix
                       ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.only(left: 13.0, right: 10),
                           child: widget.prefixButton ??
                               DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   icon: const Padding(
-                                    padding: EdgeInsets.only(left: 2.0),
+                                    padding:
+                                        EdgeInsets.only(left: 3, bottom: 3),
                                     child: Icon(IconsaxPlusLinear.arrow_down,
-                                        size: 22, color: AppColors.purple400),
+                                        size: 22,
+                                        color: AppColors.purple400), // Charcoal
                                   ),
                                   value: widget.dropdownValue,
                                   onChanged: widget.onDropdownChanged,
@@ -175,8 +212,19 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                               ),
                         )
                       : (widget.prefixIcon != null
-                          ? const Icon(IconsaxPlusLinear.user, size: 24)
-                          : Icon(widget.prefixSaxIcon)))
+                          ? Icon(
+                              IconsaxPlusLinear.user,
+                              size: 24,
+                              color: widget.isEnabled!
+                                  ? AppColors.purple400 // Charcoal
+                                  : AppColors.gray400,
+                            )
+                          : Icon(
+                              widget.prefixSaxIcon,
+                              color: widget.isEnabled!
+                                  ? AppColors.purple400 // Charcoal
+                                  : AppColors.gray400,
+                            )))
                   : null,
               suffixIcon: widget.isSuffix
                   ? (widget.isButtonSuffix
@@ -188,7 +236,8 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                                   icon: const Padding(
                                     padding: EdgeInsets.only(left: 2.0),
                                     child: Icon(IconsaxPlusLinear.arrow_down,
-                                        size: 22, color: AppColors.purple400),
+                                        size: 22,
+                                        color: AppColors.purple400), // Charcoal
                                   ),
                                   value: widget.dropdownValue,
                                   onChanged: widget.onDropdownChanged,
@@ -204,17 +253,27 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
                         )
                       : IconButton(
                           splashRadius: 25.r,
-                          onPressed: () {
-                            setState(() {
-                              widget.isObscure = !widget.isObscure;
-                            });
-                          },
+                          onPressed: widget.isEnabled!
+                              ? () {
+                                  setState(() {
+                                    widget.isObscure = !widget.isObscure;
+                                  });
+                                }
+                              : null,
                           icon: widget.suffixSaxIcon != null
-                              ? Icon(widget.suffixSaxIcon)
+                              ? Icon(
+                                  widget.suffixSaxIcon!,
+                                  color: widget.isEnabled!
+                                      ? AppColors.purple400 // Charcoal
+                                      : AppColors.gray400,
+                                )
                               : Icon(
                                   widget.isObscure
                                       ? IconsaxPlusLinear.eye_slash
                                       : IconsaxPlusLinear.eye,
+                                  color: widget.isEnabled!
+                                      ? AppColors.purple400 // Charcoal
+                                      : AppColors.gray400,
                                 ),
                         ))
                   : null,
@@ -229,8 +288,9 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color:
-                        widget.focus ? AppColors.purple400 : AppColors.gray400),
+                    color: widget.focus
+                        ? AppColors.purple400
+                        : AppColors.gray400), // Charcoal when focused
                 borderRadius: BorderRadius.circular(10),
               ),
               disabledBorder: OutlineInputBorder(
@@ -257,28 +317,25 @@ class _BelugaTextFieldState extends State<BelugaTextField> {
               ),
               hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
-                fontSize: 14.sp,
-                color: AppColors.gray400,
-                fontWeight: FontWeight.w400,
-              ),
+                  fontSize: 14.sp,
+                  color: AppColors.gray400,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Inter'),
               errorStyle: const TextStyle(height: -1, fontSize: 0),
             ),
           ),
         ),
 
-        // Error message (placed outside the Container)
-        if (hasError) // Only show if there's an error
+        if (hasError && currentError != null)
           Padding(
-            padding: EdgeInsets.only(
-                top: 5.h), // Add spacing between field and error
+            padding: EdgeInsets.only(top: 5.h),
             child: Text(
-              widget.validator != null
-                  ? widget.validator!(widget.controller?.text) ??
-                      '' // Display error if any
-                  : '', // Show empty text if no validator
+              currentError!,
               style: TextStyle(
                 color: AppColors.error500,
                 fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Inter',
               ),
             ),
           ),

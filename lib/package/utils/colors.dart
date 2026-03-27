@@ -9,25 +9,26 @@ class AppColors {
   static const Color gray300 = Color(0xffD0D5DD);
   static const Color gray400 = Color(0xFF98A2B3);
   static const Color gray500 = Color(0xFF646464);
-  static const Color gray600 = Color(0xFF575757);
+  static const Color gray600 = Color(0xFF475467);
   static const Color gray700 = Color(0xFF323232);
   static const Color gray800 = Color(0xFF1E1E1E);
   static const Color gray900 = Color(0xFF0E0E0E);
 
-  // Purple (Primary)
-  static const Color purple25 = Color(0xFFF5F1FF);
-  static const Color purple50 = Color(0xFFEDEAFF);
-  static const Color purple100 = Color(0xFFD6CFFF);
-  static const Color purple200 = Color(0xFFBCB3FF);
-  static const Color purple300 = Color(0xFFA392FF);
-  static const Color purple400 = Color(0xFF9B8AFB);
-  static const Color purple500 = Color(0xFF6547FF);
-  static const Color purple600 = Color(0xFF4F30E0);
-  static const Color purple700 = Color(0xFF3A21B2);
-  static const Color purple800 = Color(0xFF271484);
-  static const Color purple900 = Color(0xFF170C66);
-  static const Color radiocolor = Color(0xFF7A5AF8);
-  
+  // Black/Charcoal (Primary) - Replaced from Purple
+  static const Color purple25 = Color(0xFFF5F6F7); // Light charcoal
+  static const Color purple50 = Color(0xFFE7E9EC); // Lighter charcoal
+  static const Color purple100 = Color(0xFFD4D8DE); // Light gray-charcoal
+  static const Color purple200 = Color(0xFFB7BCC5); // Medium-light charcoal
+  static const Color purple300 = Color(0xFF9096A3); // Medium charcoal
+  static const Color purple400 =
+      Color(0xFF474B57); // Medium-dark charcoal (main accent)
+  static const Color purple500 = Color(0xFF2C333E); // Dark charcoal
+  static const Color purple600 = Color(0xFF22272F); // Darker charcoal
+  static const Color purple700 = Color(0xFF181B20); // Very dark charcoal
+  static const Color purple800 = Color(0xFF101214); // Almost black
+  static const Color purple900 = Color(0xFF000000); // Pure black
+  static const Color radiocolor =
+      Color(0xFF2C333E); // Charcoal for radio/checkboxes
 
   // Success (Green)
   static const Color success25 = Color(0xFFEDFDF2);
@@ -70,5 +71,45 @@ class AppColors {
 
   // Base Colors
   static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF1E1E1E);
+  static const Color textPrimary = Color(0xFF101828);
+
+  // Black & Gray Themed Colors (Derived from prompt)
+  static const Color primaryBlack = Color(0xff000000);
+  static const Color charcoalBlack = Color(0xff000C14);
+  static const Color iron = Color(0xffCDD1E0);
+  static const Color coreBlack = Color(0xFF2C333E);
+  static const Color darkBlack = Color(0xFF2C333E);
+  static const Color secondaryWhite = Color(0xffEEEEEE);
+  static const Color grey = Color(0xff695C5C);
+  static const Color inactiveGray = Color(0xFF999999);
+  static const Color cyanBlue = Color(0xFF2F89FC);
+  static const Color lavaRed = Color(0xFFE81515);
+  static const Color rangoonGreen = Color(0xFF171717);
+  // Replace purple's black, also added again for clarity
+  static const Color black = Color(0xFF2C333E);
+  static const Color secondaryBlack = Color(0xFF383838);
+  static const Color darkGrey = Color(0xFFDADADA);
+  static const Color blue = Color(0xFF4FACFE);
+
+  // Black Theme Tone Replacement for Purple Shades
+  static const Color black25 = Color(0xFFF5F6F7);
+  static const Color black50 = Color(0xFFE7E9EC);
+  static const Color black100 = Color(0xFFD4D8DE);
+  static const Color black200 = Color(0xFFB7BCC5);
+  static const Color black300 = Color(0xFF9096A3);
+  static const Color black400 = Color(0xFF686E7B);
+  static const Color black500 = Color(0xFF474B57);
+  static const Color black600 = Color(0xFF2C333E); // original black
+  static const Color black700 = Color(0xFF22272F);
+  static const Color black800 = Color(0xFF181B20);
+  static const Color black900 = Color(0xFF101214);
+
+  // Example usage of theme colors for Buttons/Typo etc.
+  static const Color buttonPrimaryBg = primaryBlack;
+  static const Color buttonPrimaryFg = secondaryWhite;
+  static const Color buttonSecondaryBg = darkGrey;
+  static const Color buttonSecondaryFg = primaryBlack;
+  static const Color borderActive = cyanBlue;
+  static const Color borderInactive = inactiveGray;
+  static const Color errorColor = lavaRed;
 }

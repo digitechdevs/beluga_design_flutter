@@ -23,7 +23,7 @@ class BelugaRadioButton<T> extends StatelessWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
-    this.fillColor = const Color(0xffF4F3FF),
+    this.fillColor = const Color(0xFFF5F6F7), // Light charcoal fill
     this.size = 20.0,
     this.activeColor = AppColors.radiocolor,
     this.borderColor = Colors.grey,

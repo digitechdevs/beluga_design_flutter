@@ -1,8 +1,7 @@
 import 'package:beluga_design_flutter/beluga_design.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
+class Buttons extends StatelessWidget {
+  const Buttons({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,7 +9,7 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomMainFillButton(
+            BelugaFilled(
               onPressed: () {},
               width: 120,
               height: 36,
@@ -24,7 +23,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomMainFillButton(
+            BelugaFilled(
               onPressed: () {},
               width: 120,
               height: 36,
@@ -38,7 +37,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CustomMainFillButton(
+            BelugaFilled(
               onPressed: () {},
               width: 120,
               height: 36,
@@ -55,7 +54,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            CustomMainFillButton(
+            BelugaFilled(
               onPressed: () {},
               width: 120,
               height: 36,
@@ -70,7 +69,7 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            CustomOutlinedButton(
+            BelugaOutlined(
               borderRadius: 100,
               borderColor: const Color(0xff6938EF),
               borderWidth: 1,
@@ -81,6 +80,10 @@ class MyHomePage extends StatelessWidget {
             ),
             const SizedBox(
               height: 25,
+            ),
+            BelugaElevated(
+              onPressed: () {},
+              text: 'Button CTA',
             ),
           ],
         ),
